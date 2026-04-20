@@ -1,4 +1,7 @@
 import { useState } from "react"
+import { isAxiosError } from "axios"
+import { toast } from "sonner"
+
 import { useOrderStore } from "@/lib/store/order.store"
 import { useReferenceDataStore } from "@/lib/store/referenceData.store"
 import { tableCrmApi } from "@/lib/tablecrmApi"
@@ -55,7 +58,7 @@ export const useFormFooter = () => {
   }
 
   const submit = async (conduct: boolean) => {
-    if (!activeToken || isSubmitting || total <= 0) {
+    if (isSubmitting || !activeToken) {
       return
     }
 
@@ -64,9 +67,18 @@ export const useFormFooter = () => {
     try {
       const payload = buildPayload()
       await tableCrmApi.submitOrder(activeToken, payload, conduct)
-      // console.log("order submitted", { conduct, payload })
+      toast.success(
+        conduct ? "Продажа создана и проведена" : "Продажа успешно создана"
+      )
     } catch (error) {
       console.error("Failed to submit order", error)
+      const message = isAxiosError(error)
+        ? typeof error.response?.data === "string"
+          ? error.response.data
+          : ((error.response?.data as { detail?: string } | undefined)
+              ?.detail ?? error.message)
+        : "Не удалось отправить заказ"
+      toast.error(message)
     } finally {
       setIsSubmitting(false)
     }
