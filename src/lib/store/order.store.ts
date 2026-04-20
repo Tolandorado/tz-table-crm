@@ -32,6 +32,11 @@ export const createEmptyOrder = (): IOrder => ({
   paid_lt: 0,
 })
 
+const recalculateGoodsItem = (item: IGoodsItem): IGoodsItem => ({
+  ...item,
+  sum_discounted: Math.max(item.price * item.quantity - item.discount, 0),
+})
+
 export const useOrderStore = create<IOrderState>()(
   persist(
     (set) => ({
@@ -56,17 +61,38 @@ export const useOrderStore = create<IOrderState>()(
         }))
       },
       setGoodsItem: (item) => {
-        set((state) => ({
-          order: {
-            ...state.order,
-            goods: [
-              ...state.order.goods,
-              {
-                ...item,
+        set((state) => {
+          const existingIndex = state.order.goods.findIndex(
+            (currentItem) => currentItem.nomenclature === item.nomenclature
+          )
+
+          if (existingIndex === -1) {
+            return {
+              order: {
+                ...state.order,
+                goods: [...state.order.goods, recalculateGoodsItem(item)],
               },
-            ],
-          },
-        }))
+            }
+          }
+
+          const nextGoods = state.order.goods.map((currentItem, index) => {
+            if (index !== existingIndex) {
+              return currentItem
+            }
+
+            return recalculateGoodsItem({
+              ...currentItem,
+              quantity: currentItem.quantity + item.quantity,
+            })
+          })
+
+          return {
+            order: {
+              ...state.order,
+              goods: nextGoods,
+            },
+          }
+        })
       },
       removeGoodsItem: (index) => {
         set((state) => ({

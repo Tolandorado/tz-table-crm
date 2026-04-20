@@ -47,13 +47,6 @@ export const useCashboxConnection = () => {
       const priceTypes = await ensurePriceTypes(trimmedToken)
       console.log("[cashbox] price types loaded", priceTypes.count)
 
-      console.log("[cashbox] loading nomenclature")
-      const nomenclature = await ensureNomenclature(trimmedToken, {
-        limit: 20,
-        with_prices: true,
-      })
-      console.log("[cashbox] nomenclature loaded", nomenclature.count)
-
       setActiveToken(trimmedToken)
       console.log("[cashbox] connect finished")
     } catch (error) {

@@ -3,6 +3,12 @@ import { twMerge } from "tailwind-merge"
 import type { INomenclatureItem } from "./types/reference.types"
 import type { IGoodsItem } from "./types/order.types"
 
+export type DebouncedFunction<T extends (...args: any[]) => void> = ((
+  ...args: Parameters<T>
+) => void) & {
+  cancel: () => void
+}
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
@@ -42,12 +48,6 @@ export const createTokenScope = (token: string) => {
   }
 
   return `scope_${(hash >>> 0).toString(36)}`
-}
-
-export type DebouncedFunction<T extends (...args: any[]) => void> = ((
-  ...args: Parameters<T>
-) => void) & {
-  cancel: () => void
 }
 
 export const priceFormatter = new Intl.NumberFormat("ru-RU", {
