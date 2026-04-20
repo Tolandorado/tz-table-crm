@@ -6,7 +6,7 @@ export const FormFooter = () => {
     useFormFooter()
 
   return (
-    <footer className="absolute inset-x-0 bottom-0 z-10 border-t border-border/60 bg-background/95 backdrop-blur">
+    <footer className="fixed inset-x-0 bottom-0 z-50 border-t border-border/60 bg-background/95 backdrop-blur">
       <div className="mx-auto flex w-full max-w-[420px] flex-col gap-3 px-4 py-4">
         <div className="flex items-center justify-between rounded-2xl border border-border bg-background px-4 py-3">
           <span className="text-sm text-muted-foreground">Итого</span>
@@ -14,7 +14,8 @@ export const FormFooter = () => {
             {rubleFormatter.format(total)}
           </span>
         </div>
-        <Button disabled={total === 0}
+        <Button
+          disabled={total === 0}
           className="h-11 rounded-2xl bg-[#efab90] text-base font-medium text-white hover:bg-[#e99d7f]"
           onClick={handleCreateSale}
           type="button"
