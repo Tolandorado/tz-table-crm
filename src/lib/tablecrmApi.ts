@@ -66,6 +66,10 @@ const requestList = async <T, Q extends object = object>(
   return normalizeListResponse<T>(response.data)
 }
 
+interface ISubmitOrderQuery {
+  conduct: boolean
+}
+
 const submitOrder = async <T, Q extends object = object>(
   path: string,
   token: string,
@@ -103,6 +107,8 @@ export const tableCrmApi = {
       token,
       params
     ),
-  submitOrder: (token: string, data: TOrderRequest) =>
-    submitOrder("/docs-sales/", token, data),
+  submitOrder: (token: string, data: TOrderRequest, conduct: boolean) =>
+    submitOrder<unknown, ISubmitOrderQuery>("/docs_sales/", token, data, {
+      conduct,
+    }),
 }

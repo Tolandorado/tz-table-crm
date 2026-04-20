@@ -21,19 +21,40 @@ export const useFormFooter = () => {
 
   const total = calculateOrderTotal(order)
 
-  const buildPayload = (status: boolean): TOrderRequest => {
-    const normalizedTotal = Number(total.toFixed(2))
+  const buildPayload = (): TOrderRequest => {
+    const paidRubles = total.toFixed(2)
+    const dated = Math.floor(Date.now() / 1000)
+    const goods = order.goods.map((item) => ({
+      price: item.price,
+      quantity: item.quantity,
+      unit: item.unit,
+      discount: item.discount,
+      sum_discounted: item.sum_discounted,
+      nomenclature: item.nomenclature,
+    }))
 
     return [
       {
-        ...order,
-        status,
-        paid_rubles: normalizedTotal,
+        priority: order.priority,
+        dated,
+        operation: order.operation,
+        tax_included: order.tax_included,
+        tax_active: order.tax_active,
+        goods,
+        settings: order.settings,
+        loyality_card_id: order.loyality_card_id,
+        warehouse: order.warehouse,
+        contragent: order.contragent,
+        paybox: order.paybox,
+        organization: order.organization,
+        status: false,
+        paid_rubles: paidRubles,
+        paid_lt: order.paid_lt,
       },
     ]
   }
 
-  const submit = async (status: boolean) => {
+  const submit = async (conduct: boolean) => {
     if (!activeToken || isSubmitting || total <= 0) {
       return
     }
@@ -41,8 +62,9 @@ export const useFormFooter = () => {
     setIsSubmitting(true)
 
     try {
-      await tableCrmApi.submitOrder(activeToken, buildPayload(status))
-      console.log("order submitted", { status, order })
+      const payload = buildPayload()
+      await tableCrmApi.submitOrder(activeToken, payload, conduct)
+      console.log("order submitted", { conduct, payload })
     } catch (error) {
       console.error("Failed to submit order", error)
     } finally {
