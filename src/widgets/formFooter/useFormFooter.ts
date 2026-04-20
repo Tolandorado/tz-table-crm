@@ -64,7 +64,7 @@ export const useFormFooter = () => {
     try {
       const payload = buildPayload()
       await tableCrmApi.submitOrder(activeToken, payload, conduct)
-      console.log("order submitted", { conduct, payload })
+      // console.log("order submitted", { conduct, payload })
     } catch (error) {
       console.error("Failed to submit order", error)
     } finally {

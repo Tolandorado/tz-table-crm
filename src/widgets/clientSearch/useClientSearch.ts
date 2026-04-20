@@ -42,13 +42,13 @@ export const useClientSearch = () => {
       })
 
       setClients(response.result)
-      console.log("[client] search finished: ", response)
+      // console.log("[client] search finished: ", response)
 
       if (!response.result.length) {
         setOrderField("contragent", undefined)
       }
 
-      console.log("[client] contragents loaded", response.count)
+      // console.log("[client] contragents loaded", response.count)
     } catch (error) {
       console.error("Failed to search clients", error)
       setSearchError("Не удалось найти клиента")

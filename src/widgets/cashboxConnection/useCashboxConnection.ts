@@ -26,28 +26,32 @@ export const useCashboxConnection = () => {
     }
 
     setIsConnecting(true)
-    console.log("[cashbox] connect started")
-    console.log("[cashbox] token scoped")
+    // console.log("[cashbox] connect started")
+    // console.log("[cashbox] token scoped")
 
     try {
       console.log("[cashbox] loading warehouses")
-      const warehouses = await ensureWarehouses(trimmedToken)
-      console.log("[cashbox] warehouses loaded", warehouses.count)
+      // const warehouses =
+      await ensureWarehouses(trimmedToken)
+      // console.log("[cashbox] warehouses loaded", warehouses.count)
 
       console.log("[cashbox] loading payboxes")
-      const payboxes = await ensurePayboxes(trimmedToken)
-      console.log("[cashbox] payboxes loaded", payboxes.count)
+      // const payboxes =
+      await ensurePayboxes(trimmedToken)
+      // console.log("[cashbox] payboxes loaded", payboxes.count)
 
       console.log("[cashbox] loading organizations")
-      const organizations = await ensureOrganizations(trimmedToken)
-      console.log("[cashbox] organizations loaded", organizations.count)
+      // const organizations =
+      await ensureOrganizations(trimmedToken)
+      // console.log("[cashbox] organizations loaded", organizations.count)
 
       console.log("[cashbox] loading price types")
-      const priceTypes = await ensurePriceTypes(trimmedToken)
-      console.log("[cashbox] price types loaded", priceTypes.count)
+      // const priceTypes =
+      await ensurePriceTypes(trimmedToken)
+      // console.log("[cashbox] price types loaded", priceTypes.count)
 
       setActiveToken(trimmedToken)
-      console.log("[cashbox] connect finished")
+      // console.log("[cashbox] connect finished")
     } catch (error) {
       console.error("Failed to connect cashbox", error)
     } finally {
