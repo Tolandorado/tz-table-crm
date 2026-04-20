@@ -2,7 +2,13 @@ import { Button } from "@/components/ui/button"
 import { useFormFooter } from "@/widgets/formFooter/useFormFooter"
 
 export const FormFooter = () => {
-  const { total, handleCreateSale, handleCreateAndPost, rubleFormatter } =
+  const {
+    total,
+    isSubmitting,
+    handleCreateSale,
+    handleCreateAndPost,
+    rubleFormatter,
+  } =
     useFormFooter()
 
   return (
@@ -15,7 +21,7 @@ export const FormFooter = () => {
           </span>
         </div>
         <Button
-          disabled={total === 0}
+          disabled={total === 0 || isSubmitting}
           className="h-11 rounded-2xl bg-[#efab90] text-base font-medium text-white hover:bg-[#e99d7f]"
           onClick={handleCreateSale}
           type="button"
@@ -23,7 +29,7 @@ export const FormFooter = () => {
           Создать продажу
         </Button>
         <Button
-          disabled={total === 0}
+          disabled={total === 0 || isSubmitting}
           className="h-11 rounded-2xl border border-border bg-[#edf7f1] text-base font-medium text-muted-foreground hover:bg-[#e2f0e8]"
           onClick={handleCreateAndPost}
           type="button"
