@@ -73,10 +73,7 @@ export const useSaleParameters = () => {
         setPayboxes(payboxesResponse.result)
         setWarehouses(warehousesResponse.result)
         setPriceTypes(priceTypesResponse.result)
-        setOrderField(
-          "organization",
-          organizationsResponse.result[0]?.id ?? 0
-        )
+        setOrderField("organization", organizationsResponse.result[0]?.id ?? 0)
         setOrderField("paybox", payboxesResponse.result[0]?.id ?? 0)
         setOrderField("warehouse", warehousesResponse.result[0]?.id ?? 0)
         setPriceTypeId(priceTypesResponse.result[0]?.id?.toString() ?? "")

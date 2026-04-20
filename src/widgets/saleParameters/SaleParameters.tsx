@@ -42,6 +42,7 @@ export const SaleParameters = () => {
               Организация
             </FieldLabel>
             <Select
+              disabled={organizations.length === 0 || isLoading}
               value={organization ? String(organization) : null}
               onValueChange={handleOrganizationChange}
             >
@@ -65,6 +66,7 @@ export const SaleParameters = () => {
               Счёт
             </FieldLabel>
             <Select
+              disabled={payboxes.length === 0 || isLoading}
               value={paybox ? String(paybox) : null}
               onValueChange={handlePayboxChange}
             >
@@ -88,6 +90,7 @@ export const SaleParameters = () => {
               Склад
             </FieldLabel>
             <Select
+              disabled={warehouses.length === 0 || isLoading}
               value={warehouse ? String(warehouse) : null}
               onValueChange={handleWarehouseChange}
             >
@@ -110,7 +113,9 @@ export const SaleParameters = () => {
             <FieldLabel className="w-full text-sm font-medium text-foreground">
               Тип цены
             </FieldLabel>
-            <Select value={priceTypeId || null} onValueChange={handlePriceTypeChange}>
+            <Select 
+              disabled={priceTypes.length === 0 || isLoading}
+              value={priceTypeId || null} onValueChange={handlePriceTypeChange}>
               <SelectTrigger className="h-10 w-full rounded-2xl border-border bg-background px-3.5 text-sm">
                 <SelectValue placeholder={isLoading ? "Загрузка..." : "Выберите тип цены"} />
               </SelectTrigger>
