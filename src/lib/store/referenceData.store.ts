@@ -34,6 +34,8 @@ import {
 
 type IReferenceDataState = {
   scopes: TReferenceDataScopes
+  activeToken: string | null
+  setActiveToken: (token: string | null) => void
   getCached: <K extends TResourceName>(
     resource: K,
     token: string,
@@ -106,6 +108,10 @@ export const useReferenceDataStore = create<IReferenceDataState>()(
   persist(
     (set, get) => ({
       scopes: {},
+      activeToken: null,
+      setActiveToken: (token) => {
+        set({ activeToken: token })
+      },
       getCached: createGetCachedReferenceData(get),
       setCached: (resource, token, query, data) => {
         set((state) => ({
@@ -129,7 +135,7 @@ export const useReferenceDataStore = create<IReferenceDataState>()(
         })
       },
       clearAll: () => {
-        set({ scopes: {} })
+        set({ scopes: {}, activeToken: null })
       },
       ensureContragents: async (
         token,
@@ -272,6 +278,7 @@ export const useReferenceDataStore = create<IReferenceDataState>()(
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         scopes: state.scopes,
+        activeToken: state.activeToken,
       }),
     }
   )

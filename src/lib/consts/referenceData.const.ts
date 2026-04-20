@@ -10,7 +10,7 @@ export const DEFAULT_TTL_MS: Record<TResourceName, number> = {
 }
 
 export const MAX_CACHE_ENTRIES: Record<TResourceName, number> = {
-  contragents: 20,
+  contragents: 40,
   warehouses: 10,
   payboxes: 10,
   organizations: 10,
