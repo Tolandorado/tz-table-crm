@@ -12,7 +12,6 @@ export const useCashboxConnection = () => {
     ensurePayboxes,
     ensureOrganizations,
     ensurePriceTypes,
-    ensureNomenclature,
   } = useReferenceDataStore()
 
   const handleTokenChange = (event: ChangeEvent<HTMLInputElement>) => {
