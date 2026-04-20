@@ -15,5 +15,5 @@ export const MAX_CACHE_ENTRIES: Record<TResourceName, number> = {
   payboxes: 10,
   organizations: 10,
   priceTypes: 10,
-  nomenclature: 25,
+  nomenclature: 40,
 }

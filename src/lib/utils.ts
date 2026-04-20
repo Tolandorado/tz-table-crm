@@ -1,5 +1,7 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
+import type { INomenclatureItem } from "./types/reference.types"
+import type { IGoodsItem } from "./types/order.types"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -47,6 +49,53 @@ export type DebouncedFunction<T extends (...args: any[]) => void> = ((
 ) => void) & {
   cancel: () => void
 }
+
+export const priceFormatter = new Intl.NumberFormat("ru-RU", {
+  style: "currency",
+  currency: "RUB",
+  maximumFractionDigits: 2,
+  minimumFractionDigits: 2,
+})
+
+export const toFiniteNumber = (value: unknown) => {
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return value
+  }
+
+  if (typeof value === "string") {
+    const parsed = Number(value.replace(",", "."))
+    return Number.isFinite(parsed) ? parsed : null
+  }
+
+  return null
+}
+
+export const resolveItemPrice = (item: INomenclatureItem) => {
+  for (const entry of item.prices) {
+    for (const value of Object.values(entry)) {
+      const numericValue = toFiniteNumber(value)
+      if (numericValue !== null) {
+        return numericValue
+      }
+    }
+  }
+
+  return 0
+}
+
+export const toGoodsItem = (item: INomenclatureItem): IGoodsItem => ({
+  price: resolveItemPrice(item),
+  price_type: 0,
+  unit_name: item.unit_name,
+  tax: 0,
+  status: "new",
+  nomenclature_name: item.name,
+  quantity: 1,
+  unit: item.unit,
+  discount: 0,
+  sum_discounted: resolveItemPrice(item),
+  nomenclature: item.id,
+})
 
 export const debounce = <T extends (...args: any[]) => void>(
   callback: T,

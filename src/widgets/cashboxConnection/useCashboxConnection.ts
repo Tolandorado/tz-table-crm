@@ -8,7 +8,6 @@ export const useCashboxConnection = () => {
 
   const {
     setActiveToken,
-    ensureContragents,
     ensureWarehouses,
     ensurePayboxes,
     ensureOrganizations,
@@ -49,7 +48,10 @@ export const useCashboxConnection = () => {
       console.log("[cashbox] price types loaded", priceTypes.count)
 
       console.log("[cashbox] loading nomenclature")
-      const nomenclature = await ensureNomenclature(trimmedToken)
+      const nomenclature = await ensureNomenclature(trimmedToken, {
+        limit: 20,
+        with_prices: true,
+      })
       console.log("[cashbox] nomenclature loaded", nomenclature.count)
 
       setActiveToken(trimmedToken)
