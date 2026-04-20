@@ -2,6 +2,7 @@ import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import type { INomenclatureItem } from "./types/reference.types"
 import type { IGoodsItem } from "./types/order.types"
+import { isAxiosError } from "axios"
 
 export type DebouncedFunction<T extends (...args: any[]) => void> = ((
   ...args: Parameters<T>
@@ -121,4 +122,13 @@ export const debounce = <T extends (...args: any[]) => void>(
   }
 
   return debounced as DebouncedFunction<T>
+}
+
+export const errorToToastString = (error: unknown): string => {
+  return isAxiosError(error)
+    ? typeof error.response?.data === "string"
+      ? error.response.data
+      : ((error.response?.data as { detail?: string } | undefined)?.detail ??
+        error.message)
+    : "Не удалось подключить кассу"
 }

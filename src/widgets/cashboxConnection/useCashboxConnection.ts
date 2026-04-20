@@ -1,6 +1,8 @@
 import { useState, type ChangeEvent } from "react"
+import { toast } from "sonner"
 
 import { useReferenceDataStore } from "@/lib/store/referenceData.store"
+import { errorToToastString } from "@/lib/utils"
 
 export const useCashboxConnection = () => {
   const [token, setToken] = useState("")
@@ -21,7 +23,12 @@ export const useCashboxConnection = () => {
   const handleConnect = async () => {
     const trimmedToken = token.trim()
 
-    if (!trimmedToken || isConnecting) {
+    if (isConnecting) {
+      return
+    }
+
+    if (!trimmedToken) {
+      toast.error("Введите token кассы")
       return
     }
 
@@ -51,9 +58,10 @@ export const useCashboxConnection = () => {
       // console.log("[cashbox] price types loaded", priceTypes.count)
 
       setActiveToken(trimmedToken)
-      // console.log("[cashbox] connect finished")
+      toast.success("Касса подключена")
     } catch (error) {
       console.error("Failed to connect cashbox", error)
+      toast.error(errorToToastString(error))
     } finally {
       setIsConnecting(false)
     }

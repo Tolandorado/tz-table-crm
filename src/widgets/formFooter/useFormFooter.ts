@@ -1,11 +1,11 @@
 import { useState } from "react"
-import { isAxiosError } from "axios"
 import { toast } from "sonner"
 
 import { useOrderStore } from "@/lib/store/order.store"
 import { useReferenceDataStore } from "@/lib/store/referenceData.store"
 import { tableCrmApi } from "@/lib/tablecrmApi"
 import type { IOrder, TOrderRequest } from "@/lib/types/order.types"
+import { errorToToastString } from "@/lib/utils"
 
 const calculateOrderTotal = (order: IOrder) =>
   order.goods.reduce((sum, item) => {
@@ -72,13 +72,7 @@ export const useFormFooter = () => {
       )
     } catch (error) {
       console.error("Failed to submit order", error)
-      const message = isAxiosError(error)
-        ? typeof error.response?.data === "string"
-          ? error.response.data
-          : ((error.response?.data as { detail?: string } | undefined)
-              ?.detail ?? error.message)
-        : "Не удалось отправить заказ"
-      toast.error(message)
+      toast.error(errorToToastString(error))
     } finally {
       setIsSubmitting(false)
     }
