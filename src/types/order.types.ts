@@ -1,6 +1,6 @@
-export type TOrderRequest = IOrderRequestItem[]
+export type TOrderRequest = IOrder[]
 
-export interface IOrderRequestItem {
+export interface IOrder {
   number: string
   priority: number
   dated: number

@@ -29,7 +29,7 @@ import {
   upsertReferenceScopeCache,
 } from "@/store/referenceData.cache"
 
-type ReferenceDataState = {
+type IReferenceDataState = {
   scopes: TReferenceDataScopes
   getCached: <K extends TResourceName>(
     resource: K,
@@ -78,7 +78,7 @@ type ReferenceDataState = {
 }
 
 const createGetCachedReferenceData =
-  (getState: () => ReferenceDataState): ReferenceDataState["getCached"] =>
+  (getState: () => IReferenceDataState): IReferenceDataState["getCached"] =>
   <K extends TResourceName>(
     resource: K,
     token: string,
@@ -99,7 +99,7 @@ const createGetCachedReferenceData =
     return entry.data
   }
 
-export const useReferenceDataStore = create<ReferenceDataState>()(
+export const useReferenceDataStore = create<IReferenceDataState>()(
   persist(
     (set, get) => ({
       scopes: {},
