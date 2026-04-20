@@ -5,7 +5,7 @@ import {
   DEFAULT_TTL_MS,
   MAX_CACHE_ENTRIES,
 } from "@/lib/consts/referenceData.const"
-import { tableCrmApi } from "@/tablecrmApi"
+import { tableCrmApi } from "@/lib/tablecrmApi"
 import type {
   IContragent,
   IContragentsQuery,
