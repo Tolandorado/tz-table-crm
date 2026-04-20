@@ -15,11 +15,8 @@ export const CashboxConnection = () => {
   return (
     <section className="w-full max-w-[420px] rounded-3xl border border-border bg-card px-4 py-4 text-card-foreground shadow-[0_1px_0_rgba(0,0,0,0.02)]">
       <div className="mb-4 flex items-start gap-3">
-        <div className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-full border border-border bg-muted text-xs font-medium text-muted-foreground">
-          1
-        </div>
         <div className="min-w-0">
-          <p className="text-sm font-medium text-foreground">Подключение кассы</p>
+          <p className="text-sm font-medium text-foreground">1. Подключение кассы</p>
           <p className="mt-1 text-xs leading-5 text-muted-foreground">
             Введите token и загрузите справочники
           </p>
