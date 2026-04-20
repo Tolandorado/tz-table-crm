@@ -1,6 +1,6 @@
 import { create } from "zustand"
 import { createJSONStorage, persist } from "zustand/middleware"
-import type { IGoodsItem, IOrder } from "@/types/order.types"
+import type { IGoodsItem, IOrder } from "@/lib/types/order.types"
 
 export interface IOrderState {
   order: IOrder

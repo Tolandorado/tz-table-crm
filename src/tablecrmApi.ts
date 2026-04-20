@@ -14,7 +14,7 @@ import type {
   IPriceTypesQuery,
   IWarehouse,
   IWarehousesQuery,
-} from "@/types/reference.types"
+} from "@/lib/types/reference.types"
 
 const api = axios.create({
   baseURL:

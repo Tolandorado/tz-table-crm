@@ -1,8 +1,11 @@
 import { create } from "zustand"
 import { createJSONStorage, persist } from "zustand/middleware"
 
-import { DEFAULT_TTL_MS, MAX_CACHE_ENTRIES } from "@/consts/referenceData.const"
-import { tableCrmApi } from "@/lib/tablecrmApi"
+import {
+  DEFAULT_TTL_MS,
+  MAX_CACHE_ENTRIES,
+} from "@/lib/consts/referenceData.const"
+import { tableCrmApi } from "@/tablecrmApi"
 import type {
   IContragent,
   IContragentsQuery,
@@ -20,14 +23,14 @@ import type {
   TReferenceDataScopes,
   TResourceName,
   TResourcePayloadMap,
-} from "@/types/reference.types"
+} from "@/lib/types/reference.types"
 
 import {
   getReferenceScopeKey,
   isReferenceEntryFresh,
   resolveReferenceResourceEntry,
   upsertReferenceScopeCache,
-} from "@/store/referenceData.cache"
+} from "./referenceData.cache"
 
 type IReferenceDataState = {
   scopes: TReferenceDataScopes

@@ -1,4 +1,4 @@
-import type { TResourceName } from "@/types/reference.types"
+import type { TResourceName } from "@/lib/types/reference.types"
 
 export const DEFAULT_TTL_MS: Record<TResourceName, number> = {
   contragents: 15 * 60 * 1000,

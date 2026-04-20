@@ -7,7 +7,7 @@ import type {
   TResourceCache,
   TResourceName,
   TResourcePayloadMap,
-} from "@/types/reference.types"
+} from "@/lib/types/reference.types"
 
 /**
  * Создаёт пустой scope-кеш со всеми поддерживаемыми справочниками.
@@ -95,8 +95,9 @@ export const resolveReferenceResourceEntry = <K extends TResourceName>(
     return undefined
   }
 
-  const resourceCache = (scope[resource] ??
-    {}) as TResourceCache<TResourcePayloadMap[K]>
+  const resourceCache = (scope[resource] ?? {}) as TResourceCache<
+    TResourcePayloadMap[K]
+  >
   return resourceCache[getReferenceCacheKey(query)]
 }
 
