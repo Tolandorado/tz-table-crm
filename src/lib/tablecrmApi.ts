@@ -15,6 +15,7 @@ import type {
   IWarehouse,
   IWarehousesQuery,
 } from "@/lib/types/reference.types"
+import type { TOrderRequest } from "./types/order.types"
 
 const api = axios.create({
   baseURL:
@@ -65,6 +66,22 @@ const requestList = async <T, Q extends object = object>(
   return normalizeListResponse<T>(response.data)
 }
 
+const submitOrder = async <T, Q extends object = object>(
+  path: string,
+  token: string,
+  data: TOrderRequest,
+  params?: Q
+) => {
+  const response = await api.post(path, data, {
+    params: {
+      token,
+      ...params,
+    },
+  })
+
+  return normalizeListResponse<T>(response.data)
+}
+
 export const tableCrmApi = {
   getContragents: (token: string, params?: IContragentsQuery) =>
     requestList<IContragent, IContragentsQuery>("/contragents/", token, params),
@@ -86,4 +103,6 @@ export const tableCrmApi = {
       token,
       params
     ),
+  submitOrder: (token: string, data: TOrderRequest) =>
+    submitOrder("/docs-sales/", token, data),
 }
