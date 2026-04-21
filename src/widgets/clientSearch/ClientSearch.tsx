@@ -8,13 +8,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
 import { useClientSearch } from "@/widgets/clientSearch/useClientSearch"
 
 export const ClientSearch = () => {
@@ -91,27 +85,22 @@ export const ClientSearch = () => {
             >
               Найденный клиент
             </FieldLabel>
-            <Select
+            <NativeSelect
               id="client-select"
-              value={selectedClientId ? String(selectedClientId) : undefined}
-              onValueChange={handleClientChange}
+              value={selectedClientId ? String(selectedClientId) : ""}
+              onChange={(e) => handleClientChange(e.target.value)}
               disabled={!clients.length}
+              className="w-full [&>select]:h-11 [&>select]:rounded-2xl [&>select]:border-border [&>select]:bg-background [&>select]:px-4 [&>select]:text-sm "
             >
-              <SelectTrigger className="h-11 w-full rounded-2xl border-border bg-background px-4 text-sm">
-                <SelectValue
-                  placeholder={
-                    clients.length ? "Выберите клиента" : "Сначала выполните поиск"
-                  }
-                />
-              </SelectTrigger>
-              <SelectContent className="w-[var(--anchor-width)]">
-                {clients.map((client) => (
-                  <SelectItem key={client.id} value={String(client.id)}>
-                    {client.id} · {client.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              <NativeSelectOption value="" disabled hidden>
+                {clients.length ? "Выберите клиента" : "Сначала выполните поиск"}
+              </NativeSelectOption>
+              {clients.map((client) => (
+                <NativeSelectOption key={client.id} value={String(client.id)} className="truncate">
+                  {client.name}
+                </NativeSelectOption>
+              ))}
+            </NativeSelect>
           </FieldContent>
         </Field>
       </div>

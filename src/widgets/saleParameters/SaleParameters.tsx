@@ -1,11 +1,5 @@
 import { Field, FieldContent, FieldLabel } from "@/components/ui/field"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
 import { useSaleParameters } from "@/widgets/saleParameters/useSaleParameters"
 
 export const SaleParameters = () => {
@@ -41,22 +35,21 @@ export const SaleParameters = () => {
             <FieldLabel className="w-full text-sm font-medium text-foreground">
               Организация
             </FieldLabel>
-            <Select
+            <NativeSelect
               disabled={organizations.length === 0 || isLoading}
-              value={organization ? String(organization) : null}
-              onValueChange={handleOrganizationChange}
+              value={organization ? String(organization) : ""}
+              onChange={(e) => handleOrganizationChange(e.target.value)}
+              className="w-full [&>select]:h-10 [&>select]:rounded-2xl [&>select]:border-border [&>select]:bg-background [&>select]:px-3.5 [&>select]:text-sm"
             >
-              <SelectTrigger className="h-10 w-full rounded-2xl border-border bg-background px-3.5 text-sm">
-                <SelectValue placeholder={isLoading ? "Загрузка..." : "Выберите организацию"} />
-              </SelectTrigger>
-              <SelectContent className="w-[var(--anchor-width)]">
-                {organizations.map((item) => (
-                  <SelectItem key={item.id} value={String(item.id)}>
-                    {item.short_name || item.full_name || item.work_name || item.id}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              <NativeSelectOption value="" disabled hidden>
+                {isLoading ? "Загрузка..." : "Выберите организацию"}
+              </NativeSelectOption>
+              {organizations.map((item) => (
+                <NativeSelectOption key={item.id} value={String(item.id)}>
+                  {item.short_name || item.full_name || item.work_name || item.id}
+                </NativeSelectOption>
+              ))}
+            </NativeSelect>
           </FieldContent>
         </Field>
 
@@ -65,22 +58,21 @@ export const SaleParameters = () => {
             <FieldLabel className="w-full text-sm font-medium text-foreground">
               Счёт
             </FieldLabel>
-            <Select
+            <NativeSelect
               disabled={payboxes.length === 0 || isLoading}
-              value={paybox ? String(paybox) : null}
-              onValueChange={handlePayboxChange}
+              value={paybox ? String(paybox) : ""}
+              onChange={(e) => handlePayboxChange(e.target.value)}
+              className="w-full [&>select]:h-10 [&>select]:rounded-2xl [&>select]:border-border [&>select]:bg-background [&>select]:px-3.5 [&>select]:text-sm"
             >
-              <SelectTrigger className="h-10 w-full rounded-2xl border-border bg-background px-3.5 text-sm">
-                <SelectValue placeholder={isLoading ? "Загрузка..." : "Выберите счёт"} />
-              </SelectTrigger>
-              <SelectContent className="w-[var(--anchor-width)]">
-                {payboxes.map((item) => (
-                  <SelectItem key={item.id} value={String(item.id)}>
-                    {item.name || item.external_id || item.id}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              <NativeSelectOption value="" disabled hidden>
+                {isLoading ? "Загрузка..." : "Выберите счёт"}
+              </NativeSelectOption>
+              {payboxes.map((item) => (
+                <NativeSelectOption key={item.id} value={String(item.id)}>
+                  {item.name || item.external_id || item.id}
+                </NativeSelectOption>
+              ))}
+            </NativeSelect>
           </FieldContent>
         </Field>
 
@@ -89,22 +81,21 @@ export const SaleParameters = () => {
             <FieldLabel className="w-full text-sm font-medium text-foreground">
               Склад
             </FieldLabel>
-            <Select
+            <NativeSelect
               disabled={warehouses.length === 0 || isLoading}
-              value={warehouse ? String(warehouse) : null}
-              onValueChange={handleWarehouseChange}
+              value={warehouse ? String(warehouse) : ""}
+              onChange={(e) => handleWarehouseChange(e.target.value)}
+              className="w-full [&>select]:h-10 [&>select]:rounded-2xl [&>select]:border-border [&>select]:bg-background [&>select]:px-3.5 [&>select]:text-sm"
             >
-              <SelectTrigger className="h-10 w-full rounded-2xl border-border bg-background px-3.5 text-sm">
-                <SelectValue placeholder={isLoading ? "Загрузка..." : "Выберите склад"} />
-              </SelectTrigger>
-              <SelectContent className="w-[var(--anchor-width)]">
-                {warehouses.map((item) => (
-                  <SelectItem key={item.id} value={String(item.id)}>
-                    {item.name || item.id}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              <NativeSelectOption value="" disabled hidden>
+                {isLoading ? "Загрузка..." : "Выберите склад"}
+              </NativeSelectOption>
+              {warehouses.map((item) => (
+                <NativeSelectOption key={item.id} value={String(item.id)}>
+                  {item.name || item.id}
+                </NativeSelectOption>
+              ))}
+            </NativeSelect>
           </FieldContent>
         </Field>
 
@@ -113,20 +104,21 @@ export const SaleParameters = () => {
             <FieldLabel className="w-full text-sm font-medium text-foreground">
               Тип цены
             </FieldLabel>
-            <Select 
+            <NativeSelect
               disabled={priceTypes.length === 0 || isLoading}
-              value={priceTypeId || null} onValueChange={handlePriceTypeChange}>
-              <SelectTrigger className="h-10 w-full rounded-2xl border-border bg-background px-3.5 text-sm">
-                <SelectValue placeholder={isLoading ? "Загрузка..." : "Выберите тип цены"} />
-              </SelectTrigger>
-              <SelectContent className="w-[var(--anchor-width)]">
-                {priceTypes.map((item) => (
-                  <SelectItem key={item.id} value={String(item.id)}>
-                    {item.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              value={priceTypeId || ""}
+              onChange={(e) => handlePriceTypeChange(e.target.value)}
+              className="w-full [&>select]:h-10 [&>select]:rounded-2xl [&>select]:border-border [&>select]:bg-background [&>select]:px-3.5 [&>select]:text-sm"
+            >
+              <NativeSelectOption value="" disabled hidden>
+                {isLoading ? "Загрузка..." : "Выберите тип цены"}
+              </NativeSelectOption>
+              {priceTypes.map((item) => (
+                <NativeSelectOption key={item.id} value={String(item.id)}>
+                  {item.name}
+                </NativeSelectOption>
+              ))}
+            </NativeSelect>
           </FieldContent>
         </Field>
 
