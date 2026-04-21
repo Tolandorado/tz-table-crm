@@ -56,7 +56,7 @@ export const ProductsSearch = () => {
         </FieldContent>
       </Field>
 
-      <div className="mt-4 h-72 overflow-y-auto rounded-2xl border border-border bg-background">
+      <div className="mt-4 h-72 overflow-y-auto rounded-2xl border border-border bg-background no-scrollbar">
         {isLoading ? (
           <div className="flex items-center gap-2 px-4 py-4 text-sm text-muted-foreground">
             <Loader2Icon className="size-4 animate-spin" aria-hidden="true" />
@@ -69,7 +69,7 @@ export const ProductsSearch = () => {
             Подключите кассу для поиска товаров
           </div>
         ) : items.length ? (
-          <div className="divide-y divide-border">
+          <div className="divide-y divide-border ">
             {items.map((item) => {
               const price = formatItemPrice(item)
 

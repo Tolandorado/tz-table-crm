@@ -29,7 +29,7 @@ export const Cart = () => {
         </div>
       </div>
 
-      <div className="max-h-[28rem] space-y-3 overflow-y-auto pr-1">
+      <div className="max-h-[28rem] space-y-3 overflow-y-auto pr-1 no-scrollbar">
         {goods.length ? (
           goods.map((item, index) => {
             const sum = Math.max(item.price * item.quantity - item.discount, 0)
